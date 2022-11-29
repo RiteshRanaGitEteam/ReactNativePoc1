@@ -13,6 +13,8 @@ import LinearGradient from "react-native-linear-gradient";
 export default function App() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim2 = useRef(new Animated.Value(1)).current;
+  const fadeAnim3 = useRef(new Animated.Value(1)).current;
+  const fadeAnim4 = useRef(new Animated.Value(0)).current;
   // const fadeAnimText = useRef("Join")).current;
   const fadeIn = () => {
     // Will change fadeAnim value to 1 in 5 seconds
@@ -35,12 +37,12 @@ export default function App() {
 
   const fadeOut = () => {
     // Will change fadeAnim value to 0 in 3 seconds
-    Animated.timing(fadeAnim2, {
-      toValue: 1,
+    Animated.timing(fadeAnim3, {
+      toValue: 0,
       duration: 2000,
     }).start();
-    Animated.timing(fadeAnim, {
-      toValue: 0,
+    Animated.timing(fadeAnim4, {
+      toValue: 1,
       duration: 3000,
     }).start();
   };
@@ -80,44 +82,62 @@ export default function App() {
                 color="transparent"
                 onPress={fadeIn}
               > */}
-              <LinearGradient
-                colors={["#ff00e0", "#c000ff", "#9100ff"]}
-                style={styles.linearGradient}
-                locations={[0, 0.3, 0.8]}
-                start={{ x: 0, y: 1 }}
-                end={{ x: 1, y: 0 }}
-                onPress={fadeIn}
+              <Animated.View
+                style={[
+                  styles.fadingContainer,
+                  {
+                    // Bind opacity to animated value
+                    opacity: fadeAnim3,
+                  },
+                ]}
               >
-                {/* <Text onPress={fadeIn} style={styles.btnTextColor}>
+                <LinearGradient
+                  colors={["#ff00e0", "#c000ff", "#9100ff"]}
+                  style={styles.linearGradient}
+                  locations={[0, 0.3, 0.8]}
+                  start={{ x: 0, y: 1 }}
+                  end={{ x: 1, y: 0 }}
+                  onPress={fadeIn}
+                >
+                  {/* <Text onPress={fadeIn} style={styles.btnTextColor}>
                   {"Join"}
                 </Text> */}
-                <Animated.View
-                  style={[
-                    styles.fadingContainer,
-                    {
-                      // Bind opacity to animated value
-                      opacity: fadeAnim2,
-                    },
-                  ]}
-                >
-                  <Text onPress={fadeIn} style={styles.btnTextColor}>
-                    {"Join"}
-                  </Text>
-                </Animated.View>
-                <Animated.View
-                  style={[
-                    styles.fadingContainer,
-                    {
-                      // Bind opacity to animated value
-                      opacity: fadeAnim,
-                    },
-                  ]}
-                >
-                  <Text style={styles.btnTextColor}>{"✓"}</Text>
-                </Animated.View>
-              </LinearGradient>
-              {/* </Button> */}
+                  <Animated.View
+                    style={[
+                      styles.fadingContainer,
+                      {
+                        // Bind opacity to animated value
+                        opacity: fadeAnim2,
+                      },
+                    ]}
+                  >
+                    <Text onPress={fadeIn} style={styles.btnTextColor}>
+                      {"Join"}
+                    </Text>
+                  </Animated.View>
+                  <Animated.View
+                    style={[
+                      styles.fadingContainer,
+                      {
+                        // Bind opacity to animated value
+                        opacity: fadeAnim,
+                      },
+                    ]}
+                  >
+                    <Text style={styles.btnTextColor}>{"✓"}</Text>
+                  </Animated.View>
+                </LinearGradient>
+              </Animated.View>
             </View>
+            <Animated.View
+                style={[
+                  styles.fadingContainer,
+                  {
+                    // Bind opacity to animated value
+                    opacity: fadeAnim4,
+                  },
+                ]}
+              ><Text>Joined</Text></Animated.View>
           </View>
         </View>
       </SafeAreaView>
