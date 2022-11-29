@@ -12,6 +12,7 @@ import LinearGradient from "react-native-linear-gradient";
 // import AnimetedBtn from "./AnimetedBtn";
 export default function App() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeAnim2 = useRef(new Animated.Value(1)).current;
   // const fadeAnimText = useRef("Join")).current;
   const fadeIn = () => {
     // Will change fadeAnim value to 1 in 5 seconds
@@ -19,6 +20,10 @@ export default function App() {
     //   toValue: "✓",
     //   duration: 2000,
     // }).start();
+    Animated.timing(fadeAnim2, {
+      toValue: 0,
+      duration: 2000,
+    }).start();
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 2000,
@@ -30,6 +35,10 @@ export default function App() {
 
   const fadeOut = () => {
     // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(fadeAnim2, {
+      toValue: 1,
+      duration: 2000,
+    }).start();
     Animated.timing(fadeAnim, {
       toValue: 0,
       duration: 3000,
@@ -46,7 +55,7 @@ export default function App() {
             <Text className="" style={styles.textColor}>
               {"button animation"}
             </Text>
-            <Animated.View
+            {/* <Animated.View
               style={[
                 styles.fadingContainer,
                 {
@@ -55,8 +64,8 @@ export default function App() {
                 },
               ]}
             >
-              <Text style={styles.fadingText}>Fading View!</Text>
-            </Animated.View>
+              <Text style={styles.fadingText}>{"✓"}</Text>
+            </Animated.View> */}
             <View style={styles.buttonRow}>
               {/* <Button
                 title="Fade In View"
@@ -71,16 +80,42 @@ export default function App() {
                 color="transparent"
                 onPress={fadeIn}
               > */}
-                <LinearGradient
-                  colors={["#ff00e0", "#c000ff", "#9100ff"]}
-                  style={styles.linearGradient}
-                  locations ={[0, 0.3, 0.8]}
-                  start={{ x: 0, y: 1 }}
-                  end={{ x: 1, y: 0 }}
-                  onPress={fadeIn}
+              <LinearGradient
+                colors={["#ff00e0", "#c000ff", "#9100ff"]}
+                style={styles.linearGradient}
+                locations={[0, 0.3, 0.8]}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+                onPress={fadeIn}
+              >
+                {/* <Text onPress={fadeIn} style={styles.btnTextColor}>
+                  {"Join"}
+                </Text> */}
+                <Animated.View
+                  style={[
+                    styles.fadingContainer,
+                    {
+                      // Bind opacity to animated value
+                      opacity: fadeAnim2,
+                    },
+                  ]}
                 >
-                  <Text onPress={fadeIn} style={styles.btnTextColor}>{"Join"}</Text>
-                </LinearGradient>
+                  <Text onPress={fadeIn} style={styles.btnTextColor}>
+                    {"Join"}
+                  </Text>
+                </Animated.View>
+                <Animated.View
+                  style={[
+                    styles.fadingContainer,
+                    {
+                      // Bind opacity to animated value
+                      opacity: fadeAnim,
+                    },
+                  ]}
+                >
+                  <Text style={styles.btnTextColor}>{"✓"}</Text>
+                </Animated.View>
+              </LinearGradient>
               {/* </Button> */}
             </View>
           </View>
@@ -119,8 +154,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   fadingContainer: {
-    padding: 20,
-    backgroundColor: "powderblue",
     backgroundImage: "linear-gradient(to #ff00e0, #c000ff, #9100ff ) ",
   },
   fadingText: {
@@ -131,16 +164,16 @@ const styles = StyleSheet.create({
     backgroundImage: "linear-gradient(from #ff00e0,to #9100ff )",
   },
   linearGradient: {
-    color:"#fff",
+    display: "flex",
+    color: "#fff",
     margin: 20,
-    paddingVertical:5,
-    paddingHorizontal:20,
+    paddingVertical: 5,
+    paddingHorizontal: 20,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 50,
     height: "auto",
     width: "auto",
-    fontWeight: "bold"
-    
+    fontWeight: "bold",
   },
 });
